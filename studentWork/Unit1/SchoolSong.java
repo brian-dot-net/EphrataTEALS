@@ -1,13 +1,24 @@
 package studentWork.Unit1;
 
 public class SchoolSong {
-    public static void main(String[] args) {
-        System.out.println("Fight on, fight on, Ephrata Tigers fight");
+    public static void main(String[] args){
+        tigersFight();
         System.out.println("Fight on, fight on, we'll show our Tiger's might");
-        System.out.println("Fight on, fight on, it's victory tonight");
-        System.out.println("Fight on, fight on, Ephrata Tigers fight");
+        fightSong();
         System.out.println("E - P - H - R - A - T - A");
-        System.out.println("Fight on, fight on, it's victory tonight");
+        fightSong();
+    }
+
+    public static void tigersFight() {
         System.out.println("Fight on, fight on, Ephrata Tigers fight");
+    }
+
+    public static void victoryTonight() {
+        System.out.println("Fight on, fight on, it's victory tonight");
+    }
+
+    public static void fightSong() {
+        victoryTonight();
+        tigersFight();
     }
 }
