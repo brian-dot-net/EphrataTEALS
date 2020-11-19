@@ -58,16 +58,17 @@ public class Yahtzee {
         }
     }
 
-    // Ask the user for a yes/no answer ("y" or "n") and return it as a boolean ("y" -> true).
-    // We use an infinite loop here to ensure we never return until the input is found!
+    // Ask the user for a yes/no answer ("y" or "n") and return it as a boolean
+    // ("y" -> true).
+    // We use an infinite loop here to ensure we never return until the input is
+    // found!
     public static boolean promptYesNo(Scanner console, String text) {
         while (true) {
             System.out.print(text + " (y/n) ");
             String response = console.next();
             if (response.equals("y")) {
                 return true;
-            }
-            else if (response.equals("n")) {
+            } else if (response.equals("n")) {
                 return false;
             }
         }
@@ -116,23 +117,19 @@ public class Yahtzee {
                 if (promptYesNo(console, "Do you want to reroll?")) {
                     int dice = promptInt(console, "Which dice? (e.g. 135 to reroll #1, #3, and #5)", 0, 54321);
 
-                    // Reset any die to be rerolled; each digit of the input specifies a die to roll.
+                    // Reset any die to be rerolled (each digit of the input specifies a die).
                     while (dice > 0) {
                         int die = dice % 10;
                         dice /= 10;
                         if (die == 1) {
                             d1 = 0;
-                        }
-                        else if (die == 2) {
+                        } else if (die == 2) {
                             d2 = 0;
-                        }
-                        else if (die == 3) {
+                        } else if (die == 3) {
                             d3 = 0;
-                        }
-                        else if (die == 4) {
+                        } else if (die == 4) {
                             d4 = 0;
-                        }
-                        else if (die == 5) {
+                        } else if (die == 5) {
                             d5 = 0;
                         }
                     }
@@ -146,8 +143,7 @@ public class Yahtzee {
                     d5 = rollDie(d5);
 
                     printDice(d1, d2, d3, d4, d5);
-                }
-                else {
+                } else {
                     rerollsLeft = 0;
                 }
             }
@@ -180,109 +176,85 @@ public class Yahtzee {
                 if (combo == 'a') {
                     if (up1 < 0) {
                         up1 = scoreUpper(1, d1, d2, d3, d4, d5);
-                    }
-                    else {
+                    } else {
                         combo = printAlreadyScored("Aces");
                     }
-                }
-                else if (combo == 'b') {
+                } else if (combo == 'b') {
                     if (up2 < 0) {
                         up2 = scoreUpper(2, d1, d2, d3, d4, d5);
-                    }
-                    else {
+                    } else {
                         combo = printAlreadyScored("Twos");
                     }
-                }
-                else if (combo == 'c') {
+                } else if (combo == 'c') {
                     if (up3 < 0) {
                         up3 = scoreUpper(3, d1, d2, d3, d4, d5);
-                    }
-                    else {
+                    } else {
                         combo = printAlreadyScored("Threes");
                     }
-                }
-                else if (combo == 'd') {
+                } else if (combo == 'd') {
                     if (up4 < 0) {
                         up4 = scoreUpper(4, d1, d2, d3, d4, d5);
-                    }
-                    else {
+                    } else {
                         combo = printAlreadyScored("Fours");
                     }
-                }
-                else if (combo == 'e') {
+                } else if (combo == 'e') {
                     if (up5 < 0) {
                         up5 = scoreUpper(5, d1, d2, d3, d4, d5);
-                    }
-                    else {
+                    } else {
                         combo = printAlreadyScored("Fives");
                     }
-                }
-                else if (combo == 'f') {
+                } else if (combo == 'f') {
                     if (up6 < 0) {
                         up6 = scoreUpper(6, d1, d2, d3, d4, d5);
-                    }
-                    else {
+                    } else {
                         combo = printAlreadyScored("Sixes");
                     }
-                }
-                else if (combo == 'g') {
+                } else if (combo == 'g') {
                     if (lw3 < 0) {
                         lw3 = scoreKind(3, d1, d2, d3, d4, d5);
-                    }
-                    else {
+                    } else {
                         combo = printAlreadyScored("3 of a kind");
                     }
-                }
-                else if (combo == 'h') {
+                } else if (combo == 'h') {
                     if (lw4 < 0) {
                         lw4 = scoreKind(4, d1, d2, d3, d4, d5);
-                    }
-                    else {
+                    } else {
                         combo = printAlreadyScored("4 of a kind");
                     }
-                }
-                else if (combo == 'i') {
+                } else if (combo == 'i') {
                     if (lwFull < 0) {
                         lwFull = scoreFull(d1, d2, d3, d4, d5);
-                    }
-                    else {
+                    } else {
                         combo = printAlreadyScored("Full House");
                     }
-                }
-                else if (combo == 'j') {
+                } else if (combo == 'j') {
                     if (lwSmall < 0) {
                         lwSmall = scoreStraight(4, d1, d2, d3, d4, d5);
-                    }
-                    else {
+                    } else {
                         combo = printAlreadyScored("Small Straight");
                     }
-                }
-                else if (combo == 'k') {
+                } else if (combo == 'k') {
                     if (lwLarge < 0) {
                         lwLarge = scoreStraight(5, d1, d2, d3, d4, d5);
-                    }
-                    else {
+                    } else {
                         combo = printAlreadyScored("Large Straight");
                     }
-                }
-                else if (combo == 'l') {
+                } else if (combo == 'l') {
                     if (lwYahtzee < 0) {
                         lwYahtzee = scoreYahtzee(d1, d2, d3, d4, d5);
-                    }
-                    else {
+                    } else {
                         combo = printAlreadyScored("Yahtzee");
                     }
-                }
-                else {
+                } else {
                     if (lwChance < 0) {
                         lwChance = scoreChance(d1, d2, d3, d4, d5);
-                    }
-                    else {
+                    } else {
                         combo = printAlreadyScored("Chance");
                     }
                 }
 
-                // If we're not already scoring a Yahtzee, let's also calculate the Yahtzee bonus.
+                // If we're not already scoring a Yahtzee, let's also calculate the Yahtzee
+                // bonus.
                 if (combo != 'l') {
                     // The player must already have a Yahtzee to get the bonus.
                     if (lwYahtzee > 0) {
@@ -296,8 +268,7 @@ public class Yahtzee {
             // Display the scoring table
             grandTotal = 0;
             printSeparator('=');
-            grandTotal += printUpperSection(
-                up1, up2, up3, up4, up5, up6);
+            grandTotal += printUpperSection(up1, up2, up3, up4, up5, up6);
             printSeparator('-');
             grandTotal += printLowerSection(lw3, lw4, lwFull, lwSmall, lwLarge, lwYahtzee, lwChance, lwBonus);
             printSeparator('-');
@@ -309,14 +280,14 @@ public class Yahtzee {
         return grandTotal;
     }
 
-    // Prints a scoring menu option. The option will not appear if the combination was already filled.
+    // Prints a scoring menu option. The option will not
+    // appear if the combination was already filled.
     public static void printScoringOption(char letter, String name, int score) {
         String option;
         if (score < 0) {
             // Option is available
             option = letter + "=" + name;
-        }
-        else {
+        } else {
             // Already taken... display a blank space here instead
             option = "";
         }
@@ -335,7 +306,7 @@ public class Yahtzee {
     public static int scoreChance(int d1, int d2, int d3, int d4, int d5) {
         // Any die roll is a Chance! Just add them up.
         return d1 + d2 + d3 + d4 + d5;
-    }    
+    }
 
     // Returns the score for a Yahtzee.
     public static int scoreYahtzee(int d1, int d2, int d3, int d4, int d5) {
@@ -353,7 +324,7 @@ public class Yahtzee {
             return 0;
         }
 
-        if (d4 != d5) { 
+        if (d4 != d5) {
             return 0;
         }
 
@@ -361,7 +332,8 @@ public class Yahtzee {
         return 50;
     }
 
-    // Returns the dice score for the specified upper combination value (Aces - Sixes).
+    // Returns the dice score for the specified upper combination value
+    // (Aces - Sixes).
     public static int scoreUpper(int value, int d1, int d2, int d3, int d4, int d5) {
         int score = 0;
         if (d1 == value) {
@@ -415,32 +387,27 @@ public class Yahtzee {
                 if (n1 == k) {
                     foundK = true;
                 }
-            }
-            else if (d == 2) {
+            } else if (d == 2) {
                 n2++;
                 if (n2 == k) {
                     foundK = true;
                 }
-            }
-            else if (d == 3) {
+            } else if (d == 3) {
                 n3++;
                 if (n3 == k) {
                     foundK = true;
                 }
-            }
-            else if (d == 4) {
+            } else if (d == 4) {
                 n4++;
                 if (n4 == k) {
                     foundK = true;
                 }
-            }
-            else if (d == 5) {
+            } else if (d == 5) {
                 n5++;
                 if (n5 == k) {
                     foundK = true;
                 }
-            }
-            else if (d == 6) {
+            } else if (d == 6) {
                 n6++;
                 if (n6 == k) {
                     foundK = true;
@@ -451,8 +418,7 @@ public class Yahtzee {
         if (foundK) {
             // We found a "k of a kind"
             return sum;
-        }
-        else {
+        } else {
             // Otherwise, no points!
             return 0;
         }
@@ -466,8 +432,9 @@ public class Yahtzee {
         int nx = 0;
         int ny = 0;
 
-        // A full house should have only two die numbers (call them `dx` and `dy`) in total.
-        // Loop through and make sure we have only these two, and count them for later (`nx` and `ny`).
+        // A full house should have only two die numbers (call them `dx` and `dy`)
+        // in total. Loop through and make sure we have only these two, and count
+        // them for later (`nx` and `ny`).
         while (dice > 0) {
             int d = dice % 10;
             dice /= 10;
@@ -475,21 +442,17 @@ public class Yahtzee {
                 // This must be the first iteration; save the die number for later.
                 dx = d;
                 nx = 1;
-            }
-            else if (dx == d) {
+            } else if (dx == d) {
                 // We found `dx` again!
                 nx++;
-            }
-            else if (dy == 0) {
+            } else if (dy == 0) {
                 // We found a die number different from `dx`; save this as `dy`.
                 dy = d;
                 ny = 1;
-            }
-            else if (dy == d) {
+            } else if (dy == d) {
                 // We found `dy` again!
                 ny++;
-            }
-            else {
+            } else {
                 // If we got here, we can't possibly have a full house -- there must be
                 // at least 3 different numbers in this die roll.
                 return 0;
@@ -497,10 +460,10 @@ public class Yahtzee {
         }
 
         if (nx * ny == 6) {
-            // This will only happen if we have a count of (2, 3) or (3, 2), i.e. a true full house.
+            // This will only happen if we have a count of (2, 3) or (3, 2),
+            // i.e. a true full house.
             return 25;
-        }
-        else {
+        } else {
             // We must have had (4, 1) or (1, 4)... not a full house!
             return 0;
         }
@@ -523,20 +486,15 @@ public class Yahtzee {
             dice /= 10;
             if (d == 1) {
                 n1 = 1;
-            }
-            else if (d == 2) {
+            } else if (d == 2) {
                 n2 = 1;
-            }
-            else if (d == 3) {
+            } else if (d == 3) {
                 n3 = 1;
-            }
-            else if (d == 4) {
+            } else if (d == 4) {
                 n4 = 1;
-            }
-            else if (d == 5) {
+            } else if (d == 5) {
                 n5 = 1;
-            }
-            else if (d == 6) {
+            } else if (d == 6) {
                 n6 = 1;
             }
         }
@@ -558,21 +516,18 @@ public class Yahtzee {
             if (s1 + s2 + s3 > 0) {
                 // Success!
                 return 30;
-            }
-            else {
+            } else {
                 // Better luck next time...
                 return 0;
             }
-        }
-        else {
+        } else {
             // Using similar logic as above, determine if we have a large straight.
             int s1 = n1 * n2 * n3 * n4 * n5;
             int s2 = n2 * n3 * n4 * n5 * n6;
             if (s1 + s2 > 0) {
                 // Success!
                 return 40;
-            }
-            else {
+            } else {
                 // Better luck next time...
                 return 0;
             }
@@ -587,7 +542,8 @@ public class Yahtzee {
     }
 
     // Ask the user for an integer between `low` and `high` and return it.
-    // We use an infinite loop here to ensure we never return until the input is found!
+    // We use an infinite loop here to ensure we never return until the input is
+    // found!
     public static int promptInt(Scanner console, String text, int low, int high) {
         while (true) {
             System.out.print(text + " ");
@@ -601,7 +557,8 @@ public class Yahtzee {
     }
 
     // Ask the user for a character between `first` and `last` and return it.
-    // We use an infinite loop here to ensure we never return until the input is found!
+    // We use an infinite loop here to ensure we never return until the input is
+    // found!
     public static char promptChar(Scanner console, String text, char first, char last) {
         while (true) {
             System.out.print(text + " (" + first + "-" + last + ") ");
@@ -619,13 +576,14 @@ public class Yahtzee {
         }
     }
 
-    // Returns a random die roll, but only if d > 0. Otherwise, it returns d unchanged.
+    // Returns a random die roll, but only if d > 0.
+    // Otherwise, it returns d unchanged.
     public static int rollDie(int d) {
         if (d != 0) {
             return d;
         }
 
-        return 1 + (int)(Math.random() * 6);
+        return 1 + (int) (Math.random() * 6);
     }
 
     // Prints the user's dice values, numbered for convenience.
@@ -661,8 +619,7 @@ public class Yahtzee {
         String str = "";
         if (value >= 0) {
             str += value;
-        }
-        else {
+        } else {
             value = 0;
         }
 
@@ -679,15 +636,17 @@ public class Yahtzee {
         System.out.println(" |");
     }
 
-    // Pads the String value to the given width by printing spaces on the right side.
-    // e.g., the value "Hello" with width 8 would print "Hello   " with 3 spaces on the right.
+    // Pads the String value to the given width by printing spaces on the right
+    // side; e.g., the value "Hello" with width 8 would print "Hello   " with
+    // 3 spaces on the right.
     public static void padRight(String value, int width) {
         System.out.print(value);
         pad(value, width);
     }
 
-    // Pads the String value to the given width by printing spaces on the left side.
-    // e.g., the value "Hello" with width 8 would print "   Hello" with 3 spaces on the left.
+    // Pads the String value to the given width by printing spaces on the left
+    // side; e.g., the value "Hello" with width 8 would print "   Hello" with
+    // 3 spaces on the left.
     public static void padLeft(String value, int width) {
         pad(value, width);
         System.out.print(value);
@@ -709,18 +668,19 @@ public class Yahtzee {
         total += printScoreRow("Fours", up4);
         total += printScoreRow("Fives", up5);
         total += printScoreRow("Sixes", up6);
-        
+
         int upBonus = 0;
         if (total >= 63) {
             upBonus = 35;
         }
-        
+
         total += printScoreRow("BONUS", upBonus);
         return total;
     }
-    
+
     // Prints the lower section of the scoring table.
-    public static int printLowerSection(int lw3, int lw4, int lwFull, int lwSmall, int lwLarge, int lwYahtzee, int lwChance, int lowBonus) {
+    public static int printLowerSection(int lw3, int lw4, int lwFull, int lwSmall, int lwLarge, int lwYahtzee,
+            int lwChance, int lowBonus) {
         int total = 0;
         total += printScoreRow("3 of a kind", lw3);
         total += printScoreRow("4 of a kind", lw4);
@@ -730,7 +690,7 @@ public class Yahtzee {
         total += printScoreRow("YAHTZEE", lwYahtzee);
         total += printScoreRow("Chance", lwChance);
         total += printScoreRow("YAHTZEE BONUS", lowBonus);
-        
+
         return total;
     }
 }
