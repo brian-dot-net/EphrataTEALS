@@ -152,11 +152,28 @@ public class Yahtzee {
                 }
             }
 
-            // Record the user's chosen scoring combination
-            System.out.println("a=Aces   | d=Fours | g=3 of a kind | j=Sm. Straight");
-            System.out.println("b=Twos   | e=Fives | h=4 of a kind | k=Lg. Straight");
-            System.out.println("c=Threes | f=Sixes | i=Full House  | l=Yahtzee");
-            System.out.println("                                   | m=Chance");
+            // Display the options and record the user's chosen scoring combination.
+            printScoringOption('a', "Aces", up1);
+            printScoringOption('d', "Fours", up4);
+            printScoringOption('g', "3 of a kind", lw3);
+            printScoringOption('j', "Sm. Straight", lwSmall);
+            System.out.println();
+            printScoringOption('b', "Twos", up2);
+            printScoringOption('e', "Fives", up5);
+            printScoringOption('h', "4 of a kind", lw4);
+            printScoringOption('k', "Lg. Straight", lwLarge);
+            System.out.println();
+            printScoringOption('c', "Threes", up3);
+            printScoringOption('f', "Sixes", up6);
+            printScoringOption('i', "Full House", lwFull);
+            printScoringOption('l', "Yahtzee", lwYahtzee);
+            System.out.println();
+            printEmptyScoringOption();
+            printEmptyScoringOption();
+            printEmptyScoringOption();
+            printScoringOption('m', "Chance", lwChance);
+            System.out.println();
+
             char combo = ' ';
             while (combo == ' ') {
                 combo = promptChar(console, "Enter a scoring combination.", 'a', 'm');
@@ -290,6 +307,28 @@ public class Yahtzee {
 
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~");
         return grandTotal;
+    }
+
+    // Prints a scoring menu option. The option will not appear if the combination was already filled.
+    public static void printScoringOption(char letter, String name, int score) {
+        String option;
+        if (score < 0) {
+            // Option is available
+            option = letter + "=" + name;
+        }
+        else {
+            // Already taken... display a blank space here instead
+            option = "";
+        }
+
+        padRight(option, 15);
+        System.out.print("| ");
+    }
+
+    // Prints an empty scoring menu option.
+    public static void printEmptyScoringOption() {
+        // Passing these inputs will guarantee an empty option.
+        printScoringOption(' ', "", 0);
     }
 
     // Returns the dice score for a Chance.
