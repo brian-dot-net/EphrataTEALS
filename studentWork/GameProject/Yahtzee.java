@@ -96,21 +96,53 @@ public class Yahtzee {
         int lwChance = -1;
         int lwBonus = -1;
 
-        int grandTotal;
+        int grandTotal = 0;
 
-        // Display the scoring table
-        grandTotal = 0;
-        printSeparator('=');
-        grandTotal += printUpperSection(
-            up1, up2, up3, up4, up5, up6);
-        printSeparator('-');
-        grandTotal += printLowerSection(lw3, lw4, lwFull, lwSmall, lwLarge, lwYahtzee, lwChance, lwBonus);
-        printSeparator('-');
-        printScoreRow("GRAND TOTAL", grandTotal);
-        printSeparator('=');
+        for (int i = 1; i <= 13; i++) {
+            System.out.println("ROUND " + i + " . . . ");
+
+            // Get the initial dice roll
+            int d1 = rollDie(0);
+            int d2 = rollDie(0);
+            int d3 = rollDie(0);
+            int d4 = rollDie(0);
+            int d5 = rollDie(0);
+            printDice(d1, d2, d3, d4, d5);
+
+            // Display the scoring table
+            grandTotal = 0;
+            printSeparator('=');
+            grandTotal += printUpperSection(
+                up1, up2, up3, up4, up5, up6);
+            printSeparator('-');
+            grandTotal += printLowerSection(lw3, lw4, lwFull, lwSmall, lwLarge, lwYahtzee, lwChance, lwBonus);
+            printSeparator('-');
+            printScoreRow("GRAND TOTAL", grandTotal);
+            printSeparator('=');
+        }
 
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~");
         return grandTotal;
+    }
+
+    // Returns a random die roll, but only if d > 0. Otherwise, it returns d unchanged.
+    public static int rollDie(int d) {
+        if (d != 0) {
+            return d;
+        }
+
+        return 1 + (int)(Math.random() * 6);
+    }
+
+    // Prints the user's dice values, numbered for convenience.
+    public static void printDice(int d1, int d2, int d3, int d4, int d5) {
+        System.out.println("  #1    #2    #3    #4    #5  ");
+        System.out.print(" [ " + d1 + " ]");
+        System.out.print(" [ " + d2 + " ]");
+        System.out.print(" [ " + d3 + " ]");
+        System.out.print(" [ " + d4 + " ]");
+        System.out.print(" [ " + d5 + " ]");
+        System.out.println();
     }
 
     // Prints a separator row for the scoring table, using the given symbol.
