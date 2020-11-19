@@ -58,7 +58,7 @@ public class Yahtzee {
         }
     }
 
-    // Ask the user for a yes/no answer ("y" or "n").
+    // Ask the user for a yes/no answer ("y" or "n") and return it as a boolean ("y" -> true).
     // We use an infinite loop here to ensure we never return until the input is valid!
     public static boolean promptYesNo(Scanner console, String text) {
         while (true) {
@@ -109,6 +109,49 @@ public class Yahtzee {
             int d5 = rollDie(0);
             printDice(d1, d2, d3, d4, d5);
 
+            // Do rerolls if the player wants
+            int rerollsLeft = 2;
+            while (rerollsLeft > 0) {
+                if (promptYesNo(console, "Do you want to reroll?")) {
+                    int dice = promptInt(console, "Which dice? (e.g. 135 to reroll #1, #3, and #5)", 0, 54321);
+
+                    // Reset any die to be rerolled.
+                    // Each digit of the input specifies the die to roll.
+                    while (dice > 0) {
+                        int die = dice % 10;
+                        dice /= 10;
+                        if (die == 1) {
+                            d1 = 0;
+                        }
+                        else if (die == 2) {
+                            d2 = 0;
+                        }
+                        else if (die == 3) {
+                            d3 = 0;
+                        }
+                        else if (die == 4) {
+                            d4 = 0;
+                        }
+                        else if (die == 5) {
+                            d5 = 0;
+                        }
+                    }
+
+                    System.out.println(". . . Rerolling . . .");
+                    rerollsLeft--;
+                    d1 = rollDie(d1);
+                    d2 = rollDie(d2);
+                    d3 = rollDie(d3);
+                    d4 = rollDie(d4);
+                    d5 = rollDie(d5);
+
+                    printDice(d1, d2, d3, d4, d5);
+                }
+                else {
+                    rerollsLeft = 0;
+                }
+            }
+
             // Display the scoring table
             grandTotal = 0;
             printSeparator('=');
@@ -123,6 +166,20 @@ public class Yahtzee {
 
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~");
         return grandTotal;
+    }
+
+    // Ask the user for an integer between `low` and `high` and return it.
+    // We use an infinite loop here to ensure we never return until the input is valid!
+    public static int promptInt(Scanner console, String text, int low, int high) {
+        while (true) {
+            System.out.print(text + " ");
+            int i = console.nextInt();
+            if (i >= low) {
+                if (i <= high) {
+                    return i;
+                }
+            }
+        }
     }
 
     // Returns a random die roll, but only if d > 0. Otherwise, it returns d unchanged.
