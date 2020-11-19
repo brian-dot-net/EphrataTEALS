@@ -59,7 +59,7 @@ public class Yahtzee {
     }
 
     // Ask the user for a yes/no answer ("y" or "n") and return it as a boolean ("y" -> true).
-    // We use an infinite loop here to ensure we never return until the input is valid!
+    // We use an infinite loop here to ensure we never return until the input is foundK!
     public static boolean promptYesNo(Scanner console, String text) {
         while (true) {
             System.out.print(text + " (y/n) ");
@@ -207,6 +207,22 @@ public class Yahtzee {
                         combo = printAlreadyScored("Sixes");
                     }
                 }
+                else if (combo == 'g') {
+                    if (lw3 < 0) {
+                        lw3 = scoreKind(3, d1, d2, d3, d4, d5);
+                    }
+                    else {
+                        combo = printAlreadyScored("3 of a kind");
+                    }
+                }
+                else if (combo == 'h') {
+                    if (lw4 < 0) {
+                        lw4 = scoreKind(4, d1, d2, d3, d4, d5);
+                    }
+                    else {
+                        combo = printAlreadyScored("4 of a kind");
+                    }
+                }
             }
 
             // Display the scoring table
@@ -251,6 +267,72 @@ public class Yahtzee {
         return score;
     }
 
+    // Returns the dice score for a "k of a kind" combination.
+    public static int scoreKind(int k, int d1, int d2, int d3, int d4, int d5) {
+        // Treat each die as a numeric digit, so we can loop over them below.
+        int dice = (d1 * 10000) + (d2 * 1000) + (d3 * 100) + (d4 * 10) + d5;
+        int n1 = 0;
+        int n2 = 0;
+        int n3 = 0;
+        int n4 = 0;
+        int n5 = 0;
+        int n6 = 0;
+        int sum = 0;
+
+        // Now we actually make sure that there is a "k of a kind" in these dice
+        boolean foundK = false;
+        while (dice > 0) {
+            int d = dice % 10;
+            dice /= 10;
+            sum += d;
+            if (d == 1) {
+                n1++;
+                if (n1 == k) {
+                    foundK = true;
+                }
+            }
+            else if (d == 2) {
+                n2++;
+                if (n2 == k) {
+                    foundK = true;
+                }
+            }
+            else if (d == 3) {
+                n3++;
+                if (n3 == k) {
+                    foundK = true;
+                }
+            }
+            else if (d == 4) {
+                n4++;
+                if (n4 == k) {
+                    foundK = true;
+                }
+            }
+            else if (d == 5) {
+                n5++;
+                if (n5 == k) {
+                    foundK = true;
+                }
+            }
+            else if (d == 6) {
+                n6++;
+                if (n6 == k) {
+                    foundK = true;
+                }
+            }
+        }
+
+        if (foundK) {
+            // We found a "k of a kind"
+            return sum;
+        }
+        else {
+            // Otherwise, no points!
+            return 0;
+        }
+    }
+
     // Prints an error message if the scoring combination is already taken.
     // Returns a space char for the calling code's convenience.
     public static char printAlreadyScored(String combination) {
@@ -259,7 +341,7 @@ public class Yahtzee {
     }
 
     // Ask the user for an integer between `low` and `high` and return it.
-    // We use an infinite loop here to ensure we never return until the input is valid!
+    // We use an infinite loop here to ensure we never return until the input is foundK!
     public static int promptInt(Scanner console, String text, int low, int high) {
         while (true) {
             System.out.print(text + " ");
@@ -273,7 +355,7 @@ public class Yahtzee {
     }
 
     // Ask the user for a character between `first` and `last` and return it.
-    // We use an infinite loop here to ensure we never return until the input is valid!
+    // We use an infinite loop here to ensure we never return until the input is foundK!
     public static char promptChar(Scanner console, String text, char first, char last) {
         while (true) {
             System.out.print(text + " (" + first + "-" + last + ") ");
