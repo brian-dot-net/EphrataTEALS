@@ -223,6 +223,14 @@ public class Yahtzee {
                         combo = printAlreadyScored("4 of a kind");
                     }
                 }
+                else if (combo == 'i') {
+                    if (lwFull < 0) {
+                        lwFull = scoreFull(d1, d2, d3, d4, d5);
+                    }
+                    else {
+                        combo = printAlreadyScored("Full House");
+                    }
+                }
             }
 
             // Display the scoring table
@@ -267,10 +275,15 @@ public class Yahtzee {
         return score;
     }
 
+    // Packs the die numbers into a single 5 digit integer.
+    // This makes them convenient to work with in a single loop.
+    public static int packDice(int d1, int d2, int d3, int d4, int d5) {
+        return (d1 * 10000) + (d2 * 1000) + (d3 * 100) + (d4 * 10) + d5;
+    }
+
     // Returns the dice score for a "k of a kind" combination.
     public static int scoreKind(int k, int d1, int d2, int d3, int d4, int d5) {
-        // Treat each die as a numeric digit, so we can loop over them below.
-        int dice = (d1 * 10000) + (d2 * 1000) + (d3 * 100) + (d4 * 10) + d5;
+        int dice = packDice(d1, d2, d3, d4, d5);
         int n1 = 0;
         int n2 = 0;
         int n3 = 0;
@@ -329,6 +342,54 @@ public class Yahtzee {
         }
         else {
             // Otherwise, no points!
+            return 0;
+        }
+    }
+
+    // Returns the dice score for a full house combination.
+    public static int scoreFull(int d1, int d2, int d3, int d4, int d5) {
+        int dice = packDice(d1, d2, d3, d4, d5);
+        int dx = 0;
+        int dy = 0;
+        int nx = 0;
+        int ny = 0;
+
+        // A full house should have only two die numbers (call them `dx` and `dy`) in total.
+        // Loop through and make sure we have only these two, and count them for later (`nx` and `ny`).
+        while (dice > 0) {
+            int d = dice % 10;
+            dice /= 10;
+            if (dx == 0) {
+                // This must be the first iteration; save the die number for later.
+                dx = d;
+                nx = 1;
+            }
+            else if (dx == d) {
+                // We found `dx` again!
+                nx++;
+            }
+            else if (dy == 0) {
+                // We found a die number different from `dx`; save this as `dy`.
+                dy = d;
+                ny = 1;
+            }
+            else if (dy == d) {
+                // We found `dy` again!
+                ny++;
+            }
+            else {
+                // If we got here, we can't possibly have a full house -- there must be
+                // at least 3 different numbers in this die roll.
+                return 0;
+            }
+        }
+
+        if (nx * ny == 6) {
+            // This will only happen if we have a count of (2, 3) or (3, 2), i.e. a true full house.
+            return 25;
+        }
+        else {
+            // We must have had (4, 1) or (1, 4)... not a full house!
             return 0;
         }
     }
