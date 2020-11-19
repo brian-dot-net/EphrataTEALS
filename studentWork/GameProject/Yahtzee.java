@@ -1,5 +1,7 @@
 // YAHTZEE programmed by Brian Rogers.
 // For rules, see `printHelp`.
+import java.util.Scanner;
+
 public class Yahtzee {
     // Prints the help screen, explaining the rules of the game.
     public static void printHelp() {
@@ -36,6 +38,47 @@ public class Yahtzee {
 
     // Entry point
     public static void main(String[] args) {
-        printHelp();
+        Scanner console = new Scanner(System.in);
+        runIntro(console);
+        int finalScore = playGame(console);
+        System.out.println("Great game! Your final score was " + finalScore + ".");
+        console.close();
+    }
+
+    // Prints the title screen and optionally the help screen
+    public static void runIntro(Scanner console) {
+        System.out.println("_      _  __   __  __  ______ _____ _____ _____");
+        System.out.println("\\\\    // //\\\\  ||  ||    ||      // ||    ||");
+        System.out.println(" \\\\__// //__\\\\ ||__||    ||     //  ||__  ||__");
+        System.out.println("   ||   ||  || ||  ||    ||    //   ||    ||");
+        System.out.println("   ||   ||  || ||  ||    ||   //___ ||___ ||___");
+        System.out.println();
+        if (promptYesNo(console, "Do you want help?")) {
+            printHelp();
+        }
+    }
+
+    // Ask the user for a yes/no answer ("y" or "n").
+    // We use an infinite loop here to ensure we never return until the input is valid!
+    public static boolean promptYesNo(Scanner console, String text) {
+        while (true) {
+            System.out.print(text + " (y/n) ");
+            String response = console.next();
+            if (response.equals("y")) {
+                return true;
+            }
+            else if (response.equals("n")) {
+                return false;
+            }
+        }
+    }
+
+    // Main game logic goes here; returns the grand total score at the end.
+    public static int playGame(Scanner console) {
+        System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~");
+        System.out.println("Let's play Yahtzee!");
+        
+        System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~");
+        return 0;
     }
 }
