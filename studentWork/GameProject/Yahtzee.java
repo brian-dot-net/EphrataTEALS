@@ -59,7 +59,7 @@ public class Yahtzee {
     }
 
     // Ask the user for a yes/no answer ("y" or "n") and return it as a boolean ("y" -> true).
-    // We use an infinite loop here to ensure we never return until the input is foundK!
+    // We use an infinite loop here to ensure we never return until the input is found!
     public static boolean promptYesNo(Scanner console, String text) {
         while (true) {
             System.out.print(text + " (y/n) ");
@@ -587,7 +587,7 @@ public class Yahtzee {
     }
 
     // Ask the user for an integer between `low` and `high` and return it.
-    // We use an infinite loop here to ensure we never return until the input is foundK!
+    // We use an infinite loop here to ensure we never return until the input is found!
     public static int promptInt(Scanner console, String text, int low, int high) {
         while (true) {
             System.out.print(text + " ");
@@ -601,7 +601,7 @@ public class Yahtzee {
     }
 
     // Ask the user for a character between `first` and `last` and return it.
-    // We use an infinite loop here to ensure we never return until the input is foundK!
+    // We use an infinite loop here to ensure we never return until the input is found!
     public static char promptChar(Scanner console, String text, char first, char last) {
         while (true) {
             System.out.print(text + " (" + first + "-" + last + ") ");
