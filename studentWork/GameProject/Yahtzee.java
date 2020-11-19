@@ -94,7 +94,8 @@ public class Yahtzee {
         int lwLarge = -1;
         int lwYahtzee = -1;
         int lwChance = -1;
-        int lwBonus = -1;
+
+        int lwBonus = 0;
 
         int grandTotal = 0;
 
@@ -247,6 +248,24 @@ public class Yahtzee {
                         combo = printAlreadyScored("Large Straight");
                     }
                 }
+                else if (combo == 'l') {
+                    if (lwYahtzee < 0) {
+                        lwYahtzee = scoreYahtzee(d1, d2, d3, d4, d5);
+                    }
+                    else {
+                        combo = printAlreadyScored("Yahtzee");
+                    }
+                }
+
+                // If we're not already scoring a Yahtzee, let's also calculate the Yahtzee bonus.
+                if (combo != 'l') {
+                    // The player must already have a Yahtzee to get the bonus.
+                    if (lwYahtzee > 0) {
+                        if (scoreYahtzee(d1, d2, d3, d4, d5) > 0) {
+                            lwBonus += 100;
+                        }
+                    }
+                }
             }
 
             // Display the scoring table
@@ -263,6 +282,30 @@ public class Yahtzee {
 
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~");
         return grandTotal;
+    }
+
+    // Returns the score for a Yahtzee.
+    public static int scoreYahtzee(int d1, int d2, int d3, int d4, int d5) {
+        // All die numbers must be equal for a valid Yahtzee.
+        // We can bail out right away if any successive pair of dice is not equal.
+        if (d1 != d2) {
+            return 0;
+        }
+
+        if (d2 != d3) {
+            return 0;
+        }
+
+        if (d3 != d4) {
+            return 0;
+        }
+
+        if (d4 != d5) { 
+            return 0;
+        }
+
+        // If we got here, we have a Yahtzee!
+        return 50;
     }
 
     // Returns the dice score for the specified upper combination (Aces - Sixes).
