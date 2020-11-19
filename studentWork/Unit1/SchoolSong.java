@@ -1,5 +1,3 @@
-package studentWork.Unit1;
-
 public class SchoolSong {
     public static void main(String[] args){
         tigersFight();

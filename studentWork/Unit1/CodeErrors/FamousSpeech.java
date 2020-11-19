@@ -1,4 +1,4 @@
-package studentWork.Unit1.CodeErrors;
+package CodeErrors;
 
 public class FamousSpeech {
     public static void main(String[] args) {

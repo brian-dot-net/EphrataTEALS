@@ -1,4 +1,4 @@
-package studentWork.Unit1.CodeErrors;
+package CodeErrors;
 
 public class SecretMessage {
     public static void main(String[] args) {
