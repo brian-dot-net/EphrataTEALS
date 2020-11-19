@@ -115,8 +115,7 @@ public class Yahtzee {
                 if (promptYesNo(console, "Do you want to reroll?")) {
                     int dice = promptInt(console, "Which dice? (e.g. 135 to reroll #1, #3, and #5)", 0, 54321);
 
-                    // Reset any die to be rerolled.
-                    // Each digit of the input specifies the die to roll.
+                    // Reset any die to be rerolled; each digit of the input specifies a die to roll.
                     while (dice > 0) {
                         int die = dice % 10;
                         dice /= 10;
@@ -152,6 +151,64 @@ public class Yahtzee {
                 }
             }
 
+            // Record the user's chosen scoring combination
+            System.out.println("a=Aces   | d=Fours | g=3 of a kind | j=Sm. Straight");
+            System.out.println("b=Twos   | e=Fives | h=4 of a kind | k=Lg. Straight");
+            System.out.println("c=Threes | f=Sixes | i=Full House  | l=Yahtzee");
+            System.out.println("                                   | m=Chance");
+            char combo = ' ';
+            while (combo == ' ') {
+                combo = promptChar(console, "Enter a scoring combination.", 'a', 'm');
+                if (combo == 'a') {
+                    if (up1 < 0) {
+                        up1 = scoreUpper(1, d1, d2, d3, d4, d5);
+                    }
+                    else {
+                        combo = printAlreadyScored("Aces");
+                    }
+                }
+                else if (combo == 'b') {
+                    if (up2 < 0) {
+                        up2 = scoreUpper(2, d1, d2, d3, d4, d5);
+                    }
+                    else {
+                        combo = printAlreadyScored("Twos");
+                    }
+                }
+                else if (combo == 'c') {
+                    if (up3 < 0) {
+                        up3 = scoreUpper(3, d1, d2, d3, d4, d5);
+                    }
+                    else {
+                        combo = printAlreadyScored("Threes");
+                    }
+                }
+                else if (combo == 'd') {
+                    if (up4 < 0) {
+                        up4 = scoreUpper(4, d1, d2, d3, d4, d5);
+                    }
+                    else {
+                        combo = printAlreadyScored("Fours");
+                    }
+                }
+                else if (combo == 'e') {
+                    if (up5 < 0) {
+                        up5 = scoreUpper(5, d1, d2, d3, d4, d5);
+                    }
+                    else {
+                        combo = printAlreadyScored("Fives");
+                    }
+                }
+                else if (combo == 'f') {
+                    if (up6 < 0) {
+                        up6 = scoreUpper(6, d1, d2, d3, d4, d5);
+                    }
+                    else {
+                        combo = printAlreadyScored("Sixes");
+                    }
+                }
+            }
+
             // Display the scoring table
             grandTotal = 0;
             printSeparator('=');
@@ -168,6 +225,39 @@ public class Yahtzee {
         return grandTotal;
     }
 
+    // Returns the dice score for the specified upper combination (Aces - Sixes).
+    public static int scoreUpper(int value, int d1, int d2, int d3, int d4, int d5) {
+        int score = 0;
+        if (d1 == value) {
+            score += value;
+        }
+
+        if (d2 == value) {
+            score += value;
+        }
+
+        if (d3 == value) {
+            score += value;
+        }
+
+        if (d4 == value) {
+            score += value;
+        }
+
+        if (d5 == value) {
+            score += value;
+        }
+
+        return score;
+    }
+
+    // Prints an error message if the scoring combination is already taken.
+    // Returns a space char for the calling code's convenience.
+    public static char printAlreadyScored(String combination) {
+        System.out.println("You've already recorded a score for " + combination + ".");
+        return ' ';
+    }
+
     // Ask the user for an integer between `low` and `high` and return it.
     // We use an infinite loop here to ensure we never return until the input is valid!
     public static int promptInt(Scanner console, String text, int low, int high) {
@@ -177,6 +267,25 @@ public class Yahtzee {
             if (i >= low) {
                 if (i <= high) {
                     return i;
+                }
+            }
+        }
+    }
+
+    // Ask the user for a character between `first` and `last` and return it.
+    // We use an infinite loop here to ensure we never return until the input is valid!
+    public static char promptChar(Scanner console, String text, char first, char last) {
+        while (true) {
+            System.out.print(text + " (" + first + "-" + last + ") ");
+
+            // Scanner doesn't have nextChar...
+            char c = console.next().charAt(0);
+
+            // In Java, characters are really treated as numbers and specified in
+            // their sort order (A-Z) so these comparisons work as you would expect.
+            if (c >= first) {
+                if (c <= last) {
+                    return c;
                 }
             }
         }
