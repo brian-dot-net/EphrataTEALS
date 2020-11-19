@@ -231,6 +231,22 @@ public class Yahtzee {
                         combo = printAlreadyScored("Full House");
                     }
                 }
+                else if (combo == 'j') {
+                    if (lwSmall < 0) {
+                        lwSmall = scoreStraight(4, d1, d2, d3, d4, d5);
+                    }
+                    else {
+                        combo = printAlreadyScored("Small Straight");
+                    }
+                }
+                else if (combo == 'k') {
+                    if (lwLarge < 0) {
+                        lwLarge = scoreStraight(5, d1, d2, d3, d4, d5);
+                    }
+                    else {
+                        combo = printAlreadyScored("Large Straight");
+                    }
+                }
             }
 
             // Display the scoring table
@@ -346,7 +362,7 @@ public class Yahtzee {
         }
     }
 
-    // Returns the dice score for a full house combination.
+    // Returns the score for a full house combination.
     public static int scoreFull(int d1, int d2, int d3, int d4, int d5) {
         int dice = packDice(d1, d2, d3, d4, d5);
         int dx = 0;
@@ -391,6 +407,79 @@ public class Yahtzee {
         else {
             // We must have had (4, 1) or (1, 4)... not a full house!
             return 0;
+        }
+    }
+
+    // Returns the score for a straight of n (= 4 or 5).
+    public static int scoreStraight(int n, int d1, int d2, int d3, int d4, int d5) {
+        int dice = packDice(d1, d2, d3, d4, d5);
+        int n1 = 0;
+        int n2 = 0;
+        int n3 = 0;
+        int n4 = 0;
+        int n5 = 0;
+        int n6 = 0;
+
+        // Instead of returning an exact count of each die number, we will record a 1
+        // if we see any of that die number.
+        while (dice > 0) {
+            int d = dice % 10;
+            dice /= 10;
+            if (d == 1) {
+                n1 = 1;
+            }
+            else if (d == 2) {
+                n2 = 1;
+            }
+            else if (d == 3) {
+                n3 = 1;
+            }
+            else if (d == 4) {
+                n4 = 1;
+            }
+            else if (d == 5) {
+                n5 = 1;
+            }
+            else if (d == 6) {
+                n6 = 1;
+            }
+        }
+
+        if (n == 4) {
+            // There are only 3 possible small straights...
+
+            // {1,2,3,4}
+            int s1 = n1 * n2 * n3 * n4;
+
+            // {2,3,4,5}
+            int s2 = n2 * n3 * n4 * n5;
+
+            // {3,4,5,6}
+            int s3 = n3 * n4 * n5 * n6;
+
+            // At least one of these products must be nonzero if we have a valid straight,
+            // which means their sum CANNOT be zero in that case.
+            if (s1 + s2 + s3 > 0) {
+                // Success!
+                return 30;
+            }
+            else {
+                // Better luck next time...
+                return 0;
+            }
+        }
+        else {
+            // Using similar logic as above, determine if we have a large straight.
+            int s1 = n1 * n2 * n3 * n4 * n5;
+            int s2 = n2 * n3 * n4 * n5 * n6;
+            if (s1 + s2 > 0) {
+                // Success!
+                return 40;
+            }
+            else {
+                // Better luck next time...
+                return 0;
+            }
         }
     }
 
