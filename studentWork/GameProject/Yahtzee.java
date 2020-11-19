@@ -256,6 +256,14 @@ public class Yahtzee {
                         combo = printAlreadyScored("Yahtzee");
                     }
                 }
+                else {
+                    if (lwChance < 0) {
+                        lwChance = scoreChance(d1, d2, d3, d4, d5);
+                    }
+                    else {
+                        combo = printAlreadyScored("Chance");
+                    }
+                }
 
                 // If we're not already scoring a Yahtzee, let's also calculate the Yahtzee bonus.
                 if (combo != 'l') {
@@ -284,6 +292,12 @@ public class Yahtzee {
         return grandTotal;
     }
 
+    // Returns the dice score for a Chance.
+    public static int scoreChance(int d1, int d2, int d3, int d4, int d5) {
+        // Any die roll is a Chance! Just add them up.
+        return d1 + d2 + d3 + d4 + d5;
+    }    
+
     // Returns the score for a Yahtzee.
     public static int scoreYahtzee(int d1, int d2, int d3, int d4, int d5) {
         // All die numbers must be equal for a valid Yahtzee.
@@ -308,7 +322,7 @@ public class Yahtzee {
         return 50;
     }
 
-    // Returns the dice score for the specified upper combination (Aces - Sixes).
+    // Returns the dice score for the specified upper combination value (Aces - Sixes).
     public static int scoreUpper(int value, int d1, int d2, int d3, int d4, int d5) {
         int score = 0;
         if (d1 == value) {
