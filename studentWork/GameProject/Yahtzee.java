@@ -693,8 +693,7 @@ public class Yahtzee {
         System.out.print(value);
     }
 
-    // Pads the String value by printing spaces on the left side.
-    // This is a helper method for the other `padXyz` methods.
+    // This is a helper method for the other `pad...` methods.
     public static void pad(String value, int width) {
         for (int i = width - value.length(); i > 0; i--) {
             System.out.print(' ');
@@ -719,7 +718,8 @@ public class Yahtzee {
         total += printScoreRow("BONUS", upBonus);
         return total;
     }
-        
+    
+    // Prints the lower section of the scoring table.
     public static int printLowerSection(int lw3, int lw4, int lwFull, int lwSmall, int lwLarge, int lwYahtzee, int lwChance, int lowBonus) {
         int total = 0;
         total += printScoreRow("3 of a kind", lw3);
