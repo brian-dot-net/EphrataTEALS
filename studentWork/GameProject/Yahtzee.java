@@ -588,13 +588,82 @@ public class Yahtzee {
 
     // Prints the user's dice values, numbered for convenience.
     public static void printDice(int d1, int d2, int d3, int d4, int d5) {
-        System.out.println("  #1    #2    #3    #4    #5  ");
-        System.out.print(" [ " + d1 + " ]");
-        System.out.print(" [ " + d2 + " ]");
-        System.out.print(" [ " + d3 + " ]");
-        System.out.print(" [ " + d4 + " ]");
-        System.out.print(" [ " + d5 + " ]");
+        System.out.println("  #1      #2      #3      #4      #5");
+        printDiceTop(d1, d2, d3, d4, d5);
+        printDiceMiddle(d1, d2, d3, d4, d5);
+        printDiceBottom(d1, d2, d3, d4, d5);
+    }
+
+    // Prints the top line of the dice output.
+    public static void printDiceTop(int d1, int d2, int d3, int d4, int d5) {
+        printDieTop(d1);
+        printDieTop(d2);
+        printDieTop(d3);
+        printDieTop(d4);
+        printDieTop(d5);
         System.out.println();
+    }
+
+    // Prints the top block of output for a single die.
+    public static void printDieTop(int d) {
+        String output = "[ ";
+        if (d < 2) {
+            output += "   ";
+        } else if (d < 4) {
+            output += "o  ";
+        } else {
+            output += "o o";
+        }
+
+        System.out.print(output + " ] ");
+    }
+
+    // Prints the middle line of the dice output.
+    public static void printDiceMiddle(int d1, int d2, int d3, int d4, int d5) {
+        printDieMiddle(d1);
+        printDieMiddle(d2);
+        printDieMiddle(d3);
+        printDieMiddle(d4);
+        printDieMiddle(d5);
+        System.out.println();
+    }
+
+    // Prints the middle block of output for a single die.
+    public static void printDieMiddle(int d) {
+        String output = "[ ";
+        if (d % 2 == 1) {
+            output += " o ";
+        } else if (d == 6) {
+            output += "o o";
+        } else {
+            output += "   ";
+        }
+
+        System.out.print(output + " ] ");
+    }
+
+    // Prints the bottom line of the dice output.
+    public static void printDiceBottom(int d1, int d2, int d3, int d4, int d5) {
+        printDieBottom(d1);
+        printDieBottom(d2);
+        printDieBottom(d3);
+        printDieBottom(d4);
+        printDieBottom(d5);
+        System.out.println();
+    }
+
+    // Prints the bottom block of output for a single die.
+    public static void printDieBottom(int d) {
+        String output = "[ ";
+        if (d > 3) {
+            output += "o o";
+        } else if (d > 1) {
+            output += "  o";
+        } else {
+            output += "   ";
+        }
+
+        System.out.print(output + " ] ");
     }
 
     // Prints a separator row for the scoring table, using the given symbol.
