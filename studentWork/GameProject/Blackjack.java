@@ -86,10 +86,27 @@ public class Blackjack {
                 deck = initializeDeck(numberOfDecks);
             }
 
-            System.out.println("TODO: " + deck);
-
             int bet = requestBet(console, money);
+
+            String playerHand = "";
+            String dealerHand = "";
+
+            // Deal initial hand
+            System.out.println("Dealing...");
+            for (int i = 0; i < 4; i++) {
+                int index = chooseCard(deck);
+                char card = deck.charAt(index);
+                deck = removeCard(deck, index);
+                if (i % 2 == 0) {
+                    playerHand += card;
+                } else {
+                    dealerHand += card;
+                }
+            }
+
             System.out.println("TODO: $" + bet);
+            System.out.println("TODO: dealer " + dealerHand);
+            System.out.println("TODO: dealer " + playerHand);
         }
     }
 
@@ -102,6 +119,29 @@ public class Blackjack {
         }
 
         return deck;
+    }
+
+    // Choose the index of a random card from the deck. Index 0 is the first card,
+    // index 1 is the second, etc. This simulates the experience of dealing from a
+    // shuffled deck without actually having to move the cards around.
+    public static int chooseCard(String deck) {
+        return (int) (Math.random() * deck.length());
+    }
+
+    // Remove the specified card from the deck. For example, if the deck is "JQKA"
+    // and you remove index 2, the return value would be "JQA".
+    public static String removeCard(String deck, int index) {
+        // Gather up all the cards before the one we are removing
+        String before = deck.substring(0, index);
+
+        // Gather up all the cards after the one we are removing
+        if (index < deck.length() - 1) {
+            return before + deck.substring(index + 1);
+        }
+
+        // Special case if we are removing the very last card
+        // (there are absolutely no cards after this one)
+        return before;
     }
 
     // Request the player's bet.
