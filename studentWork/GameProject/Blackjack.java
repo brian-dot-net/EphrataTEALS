@@ -78,10 +78,30 @@ public class Blackjack {
     // Main game loop.
     public static void playGame(Scanner console) {
         int money = 100;
+        String deck = "";
+        int numberOfDecks = 2;
         while (money > 0) {
+            if (deck.length() < 20) {
+                System.out.println("Shuffling...");
+                deck = initializeDeck(numberOfDecks);
+            }
+
+            System.out.println("TODO: " + deck);
+
             int bet = requestBet(console, money);
             System.out.println("TODO: $" + bet);
         }
+    }
+
+    // Initializes the cards using the specified number of decks.
+    // Each deck is the standard 52-card size (4 each of A-K).
+    public static String initializeDeck(int number) {
+        String deck = "";
+        for (int i = number * 4; i > 0; i--) {
+            deck += "A23456789TJQK";
+        }
+
+        return deck;
     }
 
     // Request the player's bet.
