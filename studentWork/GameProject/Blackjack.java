@@ -75,7 +75,29 @@ public class Blackjack {
         }
     }
 
+    // Main game loop.
     public static void playGame(Scanner console) {
-        System.out.println("TODO!");
+        int money = 100;
+        while (money > 0) {
+            int bet = requestBet(console, money);
+            System.out.println("TODO: $" + bet);
+        }
+    }
+
+    // Request the player's bet.
+    // The infinite loop will only return if the bet is valid.
+    public static int requestBet(Scanner console, int money) {
+        System.out.println("You have $" + money + ".");
+        while (true) {
+            System.out.print("Enter your bet: $");
+            int bet = console.nextInt();
+            if (bet > money) {
+                System.out.println("You don't have enough money for that!");
+            } else if (bet <= 0) {
+                System.out.println("Serious bets only, please!");
+            } else {
+                return bet;
+            }
+        }
     }
 }
