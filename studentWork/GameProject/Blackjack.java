@@ -104,10 +104,45 @@ public class Blackjack {
                 }
             }
 
-            System.out.println("TODO: $" + bet);
-            System.out.println("TODO: dealer " + dealerHand);
-            System.out.println("TODO: dealer " + playerHand);
+            int dealerCount = countHand(dealerHand);
+            int playerCount = countHand(playerHand);
+
+            System.out.println("TODO Bet: " + bet);
+            System.out.println("TODO Dealer: " + dealerCount);
+            System.out.println("TODO Player: " + playerCount);
         }
+    }
+
+    // Gets the count for the given hand. For example, if the hand is "AK3" then
+    // the count would be 14.
+    public static int countHand(String hand) {
+        int count = 0;
+        boolean hasAce = false;
+        for (int i = hand.length() - 1; i >= 0; i--) {
+            char card = hand.charAt(i);
+            if (card == 'A') {
+                hasAce = true;
+                count++;
+            } else if (card == 'T') {
+                count += 10;
+            } else if (card == 'J') {
+                count += 10;
+            } else if (card == 'Q') {
+                count += 10;
+            } else if (card == 'K') {
+                count += 10;
+            } else {
+                count += card - '1' + 1;
+            }
+        }
+
+        if (hasAce) {
+            if (count <= 11) {
+                count += 10;
+            }
+        }
+
+        return count;
     }
 
     // Initializes the cards using the specified number of decks.
