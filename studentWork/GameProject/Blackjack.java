@@ -108,6 +108,7 @@ public class Blackjack {
             int playerCount = countHand(playerHand);
 
             if (dealerCount == 21) {
+                // Handle special case: dealer has blackjack
                 displayHand("Dealer", dealerHand);
                 displayHand("Player", playerHand);
                 if (playerCount == 21) {
@@ -117,12 +118,41 @@ public class Blackjack {
                     money -= bet;
                 }
             } else if (playerCount == 21) {
+                // Handle special case: player has blackjack (but dealer doesn't)
                 displayHand("Dealer", dealerHand);
                 displayHand("Player", playerHand);
                 System.out.println("Player blackjack! You win!");
                 money += bet;
             } else {
-                System.out.println("TODO");
+                // Normal gameplay... show hands but hide dealer's first card
+                displayHand("Dealer", "X" + dealerHand.charAt(1));
+                displayHand("Player", playerHand);
+
+                boolean playerTurn = true;
+                while (playerTurn) {
+                    if (promptYesNo(console, "Do you want to hit?")) {
+                        int index = chooseCard(deck);
+                        playerHand += deck.charAt(index);
+                        deck = removeCard(deck, index);
+
+                        // New card was dealt; player has either busted or
+                        // else may have reached the 6 card win threshold.
+                        displayHand("Player", playerHand);
+                        playerCount = countHand(playerHand);
+                        if (playerCount > 21) {
+                            System.out.println("Player busts! You lose.");
+                            playerTurn = false;
+                            money -= bet;
+                        } else if (playerHand.length() == 6) {
+                            System.out.println("Player has six cards! You win!");
+                            playerTurn = false;
+                            money += bet;
+                        }
+                    } else {
+                        System.out.println("Player stands.");
+                        playerTurn = false;
+                    }
+                }
             }
         }
     }
