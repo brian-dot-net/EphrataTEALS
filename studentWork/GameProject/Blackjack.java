@@ -107,10 +107,36 @@ public class Blackjack {
             int dealerCount = countHand(dealerHand);
             int playerCount = countHand(playerHand);
 
-            System.out.println("TODO Bet: " + bet);
-            System.out.println("TODO Dealer: " + dealerCount);
-            System.out.println("TODO Player: " + playerCount);
+            if (dealerCount == 21) {
+                displayHand("Dealer", dealerHand);
+                displayHand("Player", playerHand);
+                if (playerCount == 21) {
+                    System.out.println("Dealer and player both have blackjack! It's a tie.");
+                } else {
+                    System.out.println("Dealer blackjack! You lose.");
+                    money -= bet;
+                }
+            } else if (playerCount == 21) {
+                displayHand("Dealer", dealerHand);
+                displayHand("Player", playerHand);
+                System.out.println("Player blackjack! You win!");
+                money += bet;
+            } else {
+                System.out.println("TODO");
+            }
         }
+    }
+
+    // Displays all cards in the given hand.
+    public static void displayHand(String name, String hand) {
+        System.out.print(name + " | ");
+        for (int i = 0; i < hand.length(); i++) {
+            char card = hand.charAt(i);
+            System.out.print("[" + card + "] ");
+        }
+
+        System.out.println();
+        System.out.println("~ ~ ~ ~");
     }
 
     // Gets the count for the given hand. For example, if the hand is "AK3" then
