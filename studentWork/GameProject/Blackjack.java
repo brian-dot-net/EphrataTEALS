@@ -125,7 +125,7 @@ public class Blackjack {
                 money += bet;
             } else {
                 // Normal gameplay... show hands but hide dealer's first card
-                displayHand("Dealer", "X" + dealerHand.charAt(1));
+                displayHand("Dealer", "?" + dealerHand.charAt(1));
                 displayHand("Player", playerHand);
 
                 boolean playerTurn = true;
@@ -143,14 +143,43 @@ public class Blackjack {
                             System.out.println("Player busts! You lose.");
                             playerTurn = false;
                             money -= bet;
+                            bet = 0; // Skip dealer round
                         } else if (playerHand.length() == 6) {
                             System.out.println("Player has six cards! You win!");
                             playerTurn = false;
                             money += bet;
+                            bet = 0; // Skip dealer round
                         }
                     } else {
                         System.out.println("Player stands.");
                         playerTurn = false;
+                    }
+                }
+
+                // Dealer round only happens if player hasn't won or lost yet.
+                if (bet > 0) {
+                    System.out.println("Dealer's turn...");
+                    displayHand("Dealer", dealerHand);
+                    while (dealerCount <= 16) {
+                        System.out.println("Dealer hits.");
+                        int index = chooseCard(deck);
+                        dealerHand += deck.charAt(index);
+                        deck = removeCard(deck, index);
+                        dealerCount = countHand(dealerHand);
+                        displayHand("Dealer", dealerHand);
+                    }
+
+                    if (dealerCount > 21) {
+                        System.out.println("Dealer busts! You win!");
+                        money += bet;
+                    } else if (dealerCount == playerCount) {
+                        System.out.println("Dealer stands. It's a tie.");
+                    } else if (dealerCount > playerCount) {
+                        System.out.println("Dealer stands. You lose.");
+                        money -= bet;
+                    } else {
+                        System.out.println("Dealer stands. You win!");
+                        money += bet;
                     }
                 }
             }
