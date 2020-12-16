@@ -254,14 +254,9 @@ public class Yahtzee {
                 }
 
                 // If we're not already scoring a Yahtzee, let's also calculate the Yahtzee
-                // bonus.
-                if (combo != 'l') {
-                    // The player must already have a Yahtzee to get the bonus.
-                    if (lwYahtzee > 0) {
-                        if (scoreYahtzee(d1, d2, d3, d4, d5) > 0) {
-                            lwBonus += 100;
-                        }
-                    }
+                // bonus. The player must already have a Yahtzee to get the bonus.
+                if (combo != 'l' && lwYahtzee > 0 && scoreYahtzee(d1, d2, d3, d4, d5) > 0) {
+                    lwBonus += 100;
                 }
             }
 
@@ -311,25 +306,11 @@ public class Yahtzee {
     // Returns the score for a Yahtzee.
     public static int scoreYahtzee(int d1, int d2, int d3, int d4, int d5) {
         // All die numbers must be equal for a valid Yahtzee.
-        // We can bail out right away if any successive pair of dice is not equal.
-        if (d1 != d2) {
+        if (d1 == d2 && d2 == d3 && d3 == d4 && d4 == d5) {
+            return 50;
+        } else {
             return 0;
         }
-
-        if (d2 != d3) {
-            return 0;
-        }
-
-        if (d3 != d4) {
-            return 0;
-        }
-
-        if (d4 != d5) {
-            return 0;
-        }
-
-        // If we got here, we have a Yahtzee!
-        return 50;
     }
 
     // Returns the dice score for the specified upper combination value
