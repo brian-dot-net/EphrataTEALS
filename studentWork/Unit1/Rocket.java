@@ -1,3 +1,5 @@
+package studentWork.Unit1;
+
 /**
  * Prints ASCII images, such as a rocket, to the console.
  * 

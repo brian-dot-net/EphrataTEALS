@@ -1,4 +1,4 @@
-package CodeErrors;
+package studentWork.Unit1.CodeErrors;
 
 public class HelloEphrata {
     public static void main(String[] args) {
